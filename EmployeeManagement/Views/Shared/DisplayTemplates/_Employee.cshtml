@@ -1,0 +1,108 @@
+﻿@model EmployeeManagement.Models.Employee
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.CompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoiningDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferDesignation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferDesignation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentDesignation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentDesignation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResignationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResignationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RelivingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RelivingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficialEmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficialEmployeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficialEmailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficialEmailId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficialEmailIdPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficialEmailIdPassword)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e20c1462dcad4bd1b2d4ee32650770c8" Name="Diagram1">
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.AspNetUser" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.Company" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.CompanyDocumentConfigurableValue" Width="1.5" PointX="7.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.CompanyDocument" Width="1.5" PointX="10.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.CompanyDocumentsType" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.Employee" Width="1.5" PointX="7.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeBankAccount" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeEducation" Width="1.5" PointX="8.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeEducationType" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeExperiece" Width="1.5" PointX="10.5" PointY="20.375" IsExpanded="true" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__Company__Created__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__CompanyDo__Creat__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__Employee__UserId__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeB__UserI__0662F0A3" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeE__UserI__093F5D4E" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeE__UserI__0EF836A4" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__CompanyDo__Compa__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__CompanyDo__Compa__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__Employee__Compan__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__CompanyDo__Compa__4D5F7D71" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__CompanyDo__Compa__41B8C09B" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeE__Accou__0A338187" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeE__Educa__0FEC5ADD" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeManagementDBModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.Batch" Width="1.5" PointX="9" PointY="6.625" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeITExperience" Width="1.5" PointX="11.25" PointY="10.375" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.Team" Width="1.5" PointX="9" PointY="4" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__UserI__1699586C" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__Batch__178D7CA5" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__TeamI__1881A0DE" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeIncrement" Width="1.5" PointX="5.25" PointY="26.25" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__UserI__4F7CD00D" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeResignation" Width="1.5" PointX="5.25" PointY="30.625" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeR__UserI__26CFC035" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeInterview" Width="1.5" PointX="5.25" PointY="1.5" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__UserI__2C88998B" />
+        <AssociationConnector Association="EmployeeManagementDBModel.FK__EmployeeI__BankA__6E01572D" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeBgvView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EmployeeManagementDBModel.EmployeeITProfile" Width="1.5" PointX="13.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

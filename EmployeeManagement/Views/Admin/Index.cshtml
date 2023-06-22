@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = null;
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.88.1">
+<title>Employee Portal</title>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+<div class="container">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">V# LOGO</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+            @if (User.IsInRole("Super Admin"))
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Roles", "Index", "RolesAdmin", null, new { @class = "btn btn-link" });
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Users", "Index", "UsersAdmin", null, new { @class = "btn btn-link" });
+                </li>
+            }
+            <li class="nav-item">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Sign Out" class="btn btn-link" />
+                }
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid mt-3">
+        @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Post))
+        {
+            <h2>Search Employee</h2>
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-floating">
+                <input type="text" id="searchUser" name="searchUser" class="form-control" />
+                <label for="searchUser">Email or Mobile</label>
+                <br />
+                <input type="submit" value="Search User" class="btn btn-primary form-control" />
+            </div>
+            @*<div class="form-floating">
+                    <input type="submit" value="Search User" class="btn btn-primary" />
+                </div>*@
+        }
+    </div>
+</div>

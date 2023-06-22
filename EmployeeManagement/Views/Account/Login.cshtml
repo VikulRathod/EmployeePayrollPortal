@@ -1,0 +1,64 @@
+﻿@using EmployeeManagement.Models
+@model LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.88.1">
+<title>Employee Portal</title>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+<div class="container">
+    <main class="form-signin">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @*<img class="mb-4" src="~/Images/logo.svg" alt="" width="272" height="87">*@
+            <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+            <hr />
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", placeholder = "name@example.com" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Email, new { @for = "Email" })
+            </div><br />
+            <div class="form-floating">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Password, new { @for = "Password" })
+            </div>
+            <div class="checkbox mb-3">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        }
+
+            <div class="form-floating">
+                @Html.ActionLink("New user? Register", "Register", "Account") |
+                @Html.ActionLink("Forgot login details?", "ResetUserNameOrPassword", "EmployeeV1")
+            </div>
+    </main>
+
+    @Html.Partial("_Footer")
+</div>
+
+<link href="~/Content/signin.css" rel="stylesheet">
+

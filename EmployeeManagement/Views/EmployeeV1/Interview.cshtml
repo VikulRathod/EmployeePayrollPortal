@@ -1,0 +1,62 @@
+﻿@model EmployeeManagement.Models.EmployeeInterview
+
+@{
+    ViewBag.Title = "Interview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="container-fluid mt-3">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <h1>Interviews Information</h1>
+            <p>Fill all your attended interviews details along with asked questions</p>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.CompanyName, new { @for = "CompanyName" })
+            </div>
+            <br />
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.InterviewDate, new { @for = "InterviewDate" })
+            </div>
+            <br />
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.InterviewerName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InterviewerName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.InterviewerName, new { @for = "InterviewerName" })
+            </div>
+            <br />
+
+            <div class="form-floating">
+                @Html.EditorFor(model => model.InterviewRound, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InterviewRound, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.InterviewRound, new { @for = "InterviewRound" })
+            </div>
+            <br />
+
+            <div class="form-floating">
+                <div class="col-12">
+                    @Html.LabelFor(model => model.InterviewQuestions, new { @for = "InterviewQuestions" })
+                    <div>
+                        <textarea id="InterviewQuestions" rows="10" name="InterviewQuestions" class="form-control" style="width:100%;"></textarea>
+                        @Html.ValidationMessageFor(model => model.InterviewQuestions, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-floating">
+                <input type="submit" value="Save Interview Questions" class="btn btn-primary float-end" />
+            </div>
+        }
+    </div>*@
+
+@{Html.RenderAction("InterviewEdit", "EmployeeV1");}

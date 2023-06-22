@@ -1,0 +1,262 @@
+﻿@model IEnumerable<EmployeeManagement.Models.CompanyDocumentConfigurableValue>
+@using EmployeeManagement.Models
+
+
+@{
+    ViewBag.Title = "ConfigureDocumentValues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Configure Document Values</h2>
+
+    @*Field Name :
+        @Html.DropDownList("ColumnName", (IEnumerable<SelectListItem>)ViewBag.Columns, htmlAttributes: new { @class = "form-control" })*@
+
+    @*<div class="form-group">
+            <div class="form-inline">
+                <div class="col-md-3">
+                    @Html.Label("Company Name", "Company Name", htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-6">
+                    @Html.DropDownList("CompanyId", (IEnumerable<SelectListItem>)ViewBag.CompanyIdList, htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-3">
+                    <button id="opener">Open Dialog</button>
+                </div>
+            </div>
+        </div>*@
+
+    <input type="hidden" id="CompanyId" name="CompanyId" value="@ViewBag.CompanyId" />
+    <input type="hidden" id="CompanyDocumentId" name="CompanyDocumentId" value="@ViewBag.CompanyDocumentId" />
+
+    <div id="dialog" title="Basic dialog">
+        <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the &apos;x&apos; icon.</p>
+    </div>
+
+    <table id="tblConfigureDocumentsValues" class="table" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:250px">Document Field Name</th>
+                <th style="width:250px">Value type</th>
+                <th style="width:250px">Document Field Value</th>
+                <th style="width:250px">Field Format</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CompanyDocumentConfigurableValue value in Model)
+            {
+            <tr>
+                <td>
+                    <input type="text" id="tblFieldName" class="form-control"
+                           value="@value.FieldName" />
+                </td>
+                <td>
+                    <select id="ddlChoice" class="form-control">
+                        <option>-- Select Choice --</option>
+                        @if (value.ValueType == "Direct Value From DB")
+                        {
+                            <option selected>Direct Value From DB</option>
+                            <option>Fixed Value</option>
+                            <option>Calculated value</option>
+                        }
+                        else if (value.ValueType == "Fixed Value")
+                        {
+                            <option>Direct Value From DB</option>
+                            <option selected>Fixed Value</option>
+                            <option>Calculated value</option>
+                        }
+                        else
+                        {
+                            <option>Direct Value From DB</option>
+                            <option>Fixed Value</option>
+                            <option selected>Calculated value</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    @if (value.ValueType == "Direct Value From DB")
+                    {
+                        <select class='form-control' id='tblFieldValue' name='tblFieldValue'>
+                            @for (int i = 0; i < ViewBag.Columns.Length; i++)
+                            {
+                                if (ViewBag.Columns[i] == value.FieldValue)
+                                {
+                                    <option selected>@ViewBag.Columns[i]</option>
+                                }
+                                else
+                                {
+                                    <option>@ViewBag.Columns[i]</option>
+                                }
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input type="text" id="tblFieldValue" class="form-control"
+                               value="@value.FieldValue" />
+                    }
+                </td>
+                <td>
+                    <input type="text" id="tblFieldFormat" class="form-control"
+                           value="@value.FieldFormat" />
+                </td>
+                <td>
+                    <input type="hidden" id="Id" name="Id" value="@value.Id" />
+                </td>
+                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><input type="text" id="tblFieldName" class="form-control" /></td>
+                <td>
+                    <select id="ddlChoice" class="form-control">
+                        <option>-- Select Choice --</option>
+                        <option>Direct Value From DB</option>
+                        <option>Fixed Value</option>
+                        <option>Calculated value</option>
+                    </select>
+                </td>
+                <td><input type="text" id="tblFieldValue" class="form-control" /></td>
+                <td>
+                    <input type="text" id="tblFieldFormat" class="form-control" name="tblFieldFormat" />
+                </td>
+                <td><input type="button" id="btnAdd" value="Add" /></td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
+    <input type="button" id="btnSave" value="Save All" class="btn btn-success" />
+    @Html.ActionLink("Back To List", "Index", "CompanyDocuments", null, new { @class = "btn btn-info" })
+</div>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnAdd", function () {
+         
+        var tblFieldName = $("tfoot #tblFieldName");
+        var tblFieldValue = $("tfoot #tblFieldValue");
+        var tblFieldFormat = $("tfoot #tblFieldFormat");
+        var ddlChoice = $('tfoot #ddlChoice');
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblConfigureDocumentsValues > TBODY")[0];
+
+        var rowIndex = $("#tblConfigureDocumentsValues TBODY:first TR").length;
+
+        //Add Row.
+        var row = tBody.insertRow(rowIndex);
+
+        var cell = $(row.insertCell(0));
+        cell.html(tblFieldName.val());
+
+        var cell = $(row.insertCell(1));
+        cell.html(ddlChoice.val());
+
+        var cell = $(row.insertCell(2));
+        cell.html(tblFieldValue.val());
+
+        var cell = $(row.insertCell(3));
+        cell.html(tblFieldFormat.val());
+
+        cell = $(row.insertCell(4));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        tblFieldName.val("");
+        tblFieldValue.val("");
+        tblFieldFormat.val("");
+        ddlChoice.val("");
+    });
+
+    function Remove(button) {
+        var row = $(button).closest("TR");
+        //var name = $("TD", row).eq(0).html();
+        var filedName = $(row).find('[id="tblFieldName"]').val();
+        if (confirm("Do you want to delete field : " + filedName)) {
+            $(row).css('display', 'none');
+            $(row).find('[id="tblFieldName"]').val('deleted');
+        }
+    };
+
+    $("body").on("click", "#btnSave", function () {
+        var configurableValues = new Array();
+        $("#tblConfigureDocumentsValues TBODY TR").each(function () {
+            var row = $(this);
+            var configurableValue = {};
+            configurableValue.FieldName = (row.find("TD").eq(0).children().val() != null &&
+                row.find("TD").eq(0).children().val() != undefined) ?
+                row.find("TD").eq(0).children().val() : row.find("TD").eq(0).text();
+            configurableValue.ValueType = (row.find("TD").eq(1).children().val() != null &&
+                row.find("TD").eq(1).children().val() != undefined) ?
+                row.find("TD").eq(1).children().val() : row.find("TD").eq(1).text();
+            configurableValue.FieldValue = (row.find("TD").eq(2).children().val() != null &&
+                row.find("TD").eq(2).children().val() != undefined) ?
+                row.find("TD").eq(2).children().val() : row.find("TD").eq(2).text();
+            
+            configurableValue.FieldFormat = (row.find("TD").eq(3).children().val() != null &&
+                row.find("TD").eq(3).children().val() != undefined) ?
+                row.find("TD").eq(3).children().val() : row.find("TD").eq(3).text();
+
+            configurableValue.Id = row.find("TD").eq(4).children().val();
+            //configurableValue.SalaryAfterHike = row.find("TD").eq(3).html();
+            //configurableValue.SalaryEffectiveFrom = row.find("TD").eq(4).html();
+            //configurableValue.UserId = $("#UserId").val();
+            configurableValue.CompanyId = $('#CompanyId').val();
+            configurableValue.CompanyDocumentId = $('#CompanyDocumentId').val();
+            configurableValues.push(configurableValue);
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/CompanyDocuments/ConfigureDocumentValues",
+            data: JSON.stringify(configurableValues),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                alert("Document values configured successfully");
+            }
+        });
+    });
+
+    $("body").on("change","#ddlChoice", function () {
+        if ($(this).val() == 'Direct Value From DB') {
+
+            var selectList = '<select class="form-control" id="tblFieldValue" name="tblFieldValue">';
+
+            var columns = @Html.Raw(Json.Encode(@ViewBag.Columns));
+
+            for (var i = 0; i < columns.length; i++) {
+                selectList += '<option>' +columns[i]+ '</option>';
+            }
+            selectList += '</select>';
+
+            $(this).parent().next().html(selectList);
+        } else {
+            $(this).parent().next().html('<input type="text" id="tblFieldValue" class="form-control" />');
+        }
+    });
+</script>
+<script>
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 1000
+            },
+            hide: {
+                effect: "explode",
+                duration: 1000
+            }
+        });
+
+        $("#opener").on("click", function () {
+            $("#dialog").dialog("open");
+        });
+    });
+</script>

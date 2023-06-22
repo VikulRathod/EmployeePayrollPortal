@@ -1,0 +1,121 @@
+﻿@model IEnumerable<EmployeeManagement.Models.EmployeeIncrement>
+@using EmployeeManagement.Models
+
+<table id="tblEmployeeIncrement" class="table" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            @Html.Hidden("UserId")
+            <th style="width:150px">Hike Month & Year</th>
+            <th style="width:150px">Hike In Percentage</th>
+            <th style="width:150px">Hike Amount</th>
+            <th style="width:150px">Salary After Hike</th>
+            <th style="width:150px">Salary Effective From</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeIncrement employeeIncrement in Model)
+        {
+            <tr>
+                <td>@employeeIncrement.HikeMonthYear</td>
+                <td>@employeeIncrement.HikeInPercentage</td>
+                <td>@employeeIncrement.HikeAmount</td>
+                <td>@employeeIncrement.SalaryAfterHike</td>
+                <td>@employeeIncrement.SalaryEffectiveFrom</td>
+                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><input type="text" id="txtHikeMonthYear" /></td>
+            <td><input type="text" id="txtHikeInPercentage" /></td>
+            <td><input type="text" id="txtHikeAmount" /></td>
+            <td><input type="text" id="txtSalaryAfterHike" /></td>
+            <td><input type="text" id="txtSalaryEffectiveFrom" /></td>
+            <td><input type="button" id="btnAdd" value="Add" /></td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<input type="button" id="btnSave" value="Save All" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnAdd", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtHikeMonthYear = $("#txtHikeMonthYear");
+        var txtHikeInPercentage = $("#txtHikeInPercentage");
+        var txtHikeAmount = $("#txtHikeAmount");
+        var txtSalaryAfterHike = $("#txtSalaryAfterHike");
+        var txtSalaryEffectiveFrom = $("#txtSalaryEffectiveFrom");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblEmployeeIncrement > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        var cell = $(row.insertCell(-1));
+        cell.html(txtHikeMonthYear.val());
+        cell = $(row.insertCell(-1));
+        cell.html(txtHikeInPercentage.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtHikeAmount.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtSalaryAfterHike.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtSalaryEffectiveFrom.val());
+
+
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtHikeMonthYear.val("");
+        txtHikeInPercentage.val("");
+        txtHikeAmount.val("");
+        txtSalaryAfterHike.val("");
+        txtSalaryEffectiveFrom.val("");
+    });
+
+    function Remove(button) {
+
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            var table = $("#tblEmployeeIncrement")[0];
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+    $("body").on("click", "#btnSave", function () {
+        var increments = new Array();
+        $("#tblEmployeeIncrement TBODY TR").each(function () {
+            var row = $(this);
+            var increment = {};
+            increment.HikeMonthYear = row.find("TD").eq(0).html();
+            increment.HikeInPercentage = row.find("TD").eq(1).html();
+            increment.HikeAmount = row.find("TD").eq(2).html();
+            increment.SalaryAfterHike = row.find("TD").eq(3).html();
+            increment.SalaryEffectiveFrom = row.find("TD").eq(4).html();
+            increment.UserId = $("#UserId").val();
+            increments.push(increment);
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/EmployeeV1/InsertEmployeeIncrement",
+            data: JSON.stringify(increments),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                alert(r + " record(s) inserted.");
+            }
+        });
+    });
+</script>

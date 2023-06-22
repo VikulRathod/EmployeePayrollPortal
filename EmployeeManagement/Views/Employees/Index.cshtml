@@ -1,0 +1,166 @@
+﻿@model IEnumerable<EmployeeManagement.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PermanentAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAN)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AlternateMobile)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AlternateEmailId)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.BloodGroup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HighestQualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HighestQualificationPassoutMonthYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Technology)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.OfferDate)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.OfferDesignation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentDesignation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfferSalary)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentSalary)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.LastHikeMonthYear)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ResignationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelivingDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Photo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PermanentAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAN)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AlternateMobile)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AlternateEmailId)
+        </td>*@
+        @*<td>
+            @Html.DisplayFor(modelItem => item.BloodGroup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HighestQualification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HighestQualificationPassoutMonthYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Technology)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfferDate)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.JoiningDate)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.OfferDesignation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentDesignation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfferSalary)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentSalary)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.LastHikeMonthYear)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.ResignationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RelivingDate)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

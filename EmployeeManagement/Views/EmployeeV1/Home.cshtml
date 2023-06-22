@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.88.1">
+<title>Employee Portal</title>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+<div class="container">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">V# LOGO</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                @if (User.IsInRole("Super Admin"))
+                {
+                    @Html.ActionLink("Users", "Index", "UsersAdmin", null, new { @class = "btn btn-link" });
+                }
+            </li>
+            <li class="nav-item">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Sign Out" class="btn btn-link" />
+                }
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid mt-3">
+        @*<h1>Career Profile: @Session["VHaaShUserEmail"].ToString()</h1>*@
+        <h1>Career Profile: @ViewBag.Name</h1>
+        <p>Note: Please create your profile if you haven't yet created.</p>
+        <p>You can edit any information if you want to correct them</p>
+        <br />
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed bg-warning display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Personal Details
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("PersonalDetailsEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed bg-info display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Education Details
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("EducationalDetailsEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed bg-warning display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Bank Account Details
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("BankDetailsEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFour">
+                    <button class="accordion-button collapsed bg-info display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        Previous Experience Details
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("ExperienceDetailsEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingFive">
+                    <button class="accordion-button collapsed bg-warning display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                        IT Experience Details
+                    </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("ITExperienceDetailsEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSix">
+                    <button class="accordion-button collapsed bg-info display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                        Attended Interviews
+                    </button>
+                </h2>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("InterviewEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingSeven">
+                    <button class="accordion-button collapsed bg-warning display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                        Resignation
+                    </button>
+                </h2>
+                <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @{Html.RenderAction("ResignationEdit", "EmployeeV1");}
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            @if (User.IsInRole("Super Admin"))
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingEight">
+                        <button class="accordion-button collapsed bg-info display-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                            Assigned Company
+                        </button>
+                    </h2>
+                    <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            @{Html.RenderAction("AssignedCompany", "EmployeeV1");}
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @Html.Partial("_Footer")
+</div>

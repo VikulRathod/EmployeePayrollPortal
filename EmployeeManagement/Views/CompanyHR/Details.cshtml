@@ -1,0 +1,171 @@
+﻿@model EmployeeManagement.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>Employee Under @Html.DisplayFor(model => model.Company.CompanyName)</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FullName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo)
+            </dt>
+
+            <dd>
+                @if (Model == null || Model.Photo == null)
+                {
+                    @Html.DisplayFor(model => model.Photo)
+                }
+                else
+                {
+                    {
+                        var base64 = Convert.ToBase64String(Model.Photo);
+                        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                        <img id="ItemPreview" src="@imgSrc" height="100" width="100" />
+                    }
+                }
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PermanentAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PermanentAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PAN)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PAN)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AlternateMobile)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AlternateMobile)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AlternateEmailId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AlternateEmailId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodGroup)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodGroup)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Adhaar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Adhaar)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UAN)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UAN)
+            </dd>
+
+            <h2>For HR Use</h2>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OfficialEmployeeId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OfficialEmployeeId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OfficialEmailId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OfficialEmailId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OfficialEmailIdPassword)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OfficialEmailIdPassword)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+</div>

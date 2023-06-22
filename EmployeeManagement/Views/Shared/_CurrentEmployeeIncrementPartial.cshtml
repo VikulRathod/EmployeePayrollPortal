@@ -1,0 +1,365 @@
+﻿@model IEnumerable<EmployeeManagement.Models.EmployeeIncrement>
+@using EmployeeManagement.Models
+
+<h2>Add All Increments</h2>
+<table id="tblEmployeeIncrement" class="table" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            @Html.Hidden("UserId")
+            <th style="width:150px">Hike Month & Year</th>
+            <th style="width:150px">Hike In Percentage</th>
+            <th style="width:150px">Hike Amount</th>
+            <th style="width:150px">Salary After Hike</th>
+            <th style="width:150px">Salary Effective From</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeIncrement employeeIncrement in Model)
+        {
+            <tr>
+                <td>
+                    <input name="txtHikeMonthYear" class="form-control date-picker"
+                           value="@employeeIncrement.HikeMonthYear" />
+                </td>
+                <td>
+                    <input type="text" id="txtHikeInPercentage" name="txtHikeInPercentage" class="form-control"
+                           value="@employeeIncrement.HikeInPercentage" />
+                </td>
+                <td>
+                    <input type="text" id="txtHikeAmount" name="txtHikeAmount" class="form-control"
+                           value="@employeeIncrement.HikeAmount" />
+                </td>
+                <td>
+                    <input type="text" id="txtSalaryAfterHike" name="txtSalaryAfterHike" class="form-control"
+                           value="@employeeIncrement.SalaryAfterHike" />
+                </td>
+                <td>
+                    @*<input type="text" id="txtSalaryEffectiveFrom" />*@
+                    @{
+                        var date = (DateTime)employeeIncrement.SalaryEffectiveFrom;
+
+                        <input type="date" id="txtSalaryEffectiveFrom" name="txtSalaryEffectiveFrom" class="form-control"
+                               value='@date.ToString("yyyy-MM-dd")' />
+                    }
+                </td>
+                <td>
+                    <input type="hidden" id="hdnId" name="hdnId" value="@employeeIncrement.Id" />
+                </td>
+                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <input name="txtHikeMonthYear" class="form-control date-picker" />
+            </td>
+            <td><input type="text" id="txtHikeInPercentage" name="txtHikeInPercentage" class="form-control" /></td>
+            <td><input type="text" id="txtHikeAmount" name="txtHikeAmount" class="form-control" /></td>
+            <td><input type="text" id="txtSalaryAfterHike" name="txtSalaryAfterHike" class="form-control" /></td>
+            <td>
+                @*<input type="text" id="txtSalaryEffectiveFrom" />*@
+                <input type="date" id="txtSalaryEffectiveFrom" name="txtSalaryEffectiveFrom" class="form-control" />
+            </td>
+            <td><input type="button" id="btnAdd" value="Add" class="form-control btn btn-primary" /></td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<input type="button" id="btnSave" value="Save All" class="btn btn-success form-control" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnAdd", function () {
+        //Reference the Name and Country TextBoxes.
+        var txtHikeMonthYear = $("[name='txtHikeMonthYear']");
+        var txtHikeInPercentage = $("#txtHikeInPercentage");
+        var txtHikeAmount = $("#txtHikeAmount");
+        var txtSalaryAfterHike = $("#txtSalaryAfterHike");
+        var txtSalaryEffectiveFrom = $("#txtSalaryEffectiveFrom");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblEmployeeIncrement > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        var cell = $(row.insertCell(-1));
+        cell.html(txtHikeMonthYear.val());
+        cell = $(row.insertCell(-1));
+        cell.html(txtHikeInPercentage.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtHikeAmount.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtSalaryAfterHike.val());
+        var cell = $(row.insertCell(-1));
+        cell.html(txtSalaryEffectiveFrom.val());
+
+
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.attr("class", "form-control btn btn-danger");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtHikeMonthYear.val("");
+        txtHikeInPercentage.val("");
+        txtHikeAmount.val("");
+        txtSalaryAfterHike.val("");
+        txtSalaryEffectiveFrom.val("");
+    });
+
+    function Remove(button) {
+
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            var table = $("#tblEmployeeIncrement")[0];
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+    $("body").on("click", "#btnSave", function () {
+        var increments = new Array();
+        $("#tblEmployeeIncrement TBODY TR").each(function () {
+            var row = $(this);
+            var increment = {};
+            increment.HikeMonthYear = row.find("TD").eq(0).children().val() != null
+                && row.find("TD").eq(0).children().val() != undefined ?
+                row.find("TD").eq(0).children().val() : row.find("TD").eq(0).html();
+            increment.HikeInPercentage =
+                row.find("TD").eq(1).children().val() != null
+                    && row.find("TD").eq(1).children().val() != undefined ?
+                    row.find("TD").eq(1).children().val() : row.find("TD").eq(1).html();
+            increment.HikeAmount = row.find("TD").eq(2).children().val() != null
+                && row.find("TD").eq(2).children().val() != undefined ?
+                row.find("TD").eq(2).children().val() : row.find("TD").eq(2).html();
+            increment.SalaryAfterHike = row.find("TD").eq(3).children().val() != null
+                && row.find("TD").eq(3).children().val() != undefined ?
+                row.find("TD").eq(3).children().val() : row.find("TD").eq(3).html();
+            increment.SalaryEffectiveFrom = row.find("TD").eq(4).children().val() != null
+                && row.find("TD").eq(4).children().val() != undefined ?
+                row.find("TD").eq(4).children().val() : row.find("TD").eq(4).html();
+            increment.Id = row.find("TD").eq(5).children().val() != null
+                && row.find("TD").eq(5).children().val() != undefined ?
+                row.find("TD").eq(5).children().val() : row.find("TD").eq(5).html();
+            increment.UserId = $("#UserId").val();
+            increments.push(increment);
+        });
+
+        var lastAddedHikeMonthYear = $("[name='txtHikeMonthYear'][value]:last").val() != undefined ?
+            $("[name='txtHikeMonthYear'][value]:last").val() :
+            $("#tblEmployeeIncrement TBODY TR:last").find("TD").eq(0).html();
+        var providedLastHikeMonthYear = $('[name="LastHikeMonthYear"]').val();
+
+        if (lastAddedHikeMonthYear != providedLastHikeMonthYear) {
+            alert('Please correct last hike month and year as per profile');
+            return false;
+        }
+
+        var providedCurrentSalary = parseFloat($('#CurrentSalary').val());
+        var currentSalaryFromIncrement = $("[name='txtSalaryAfterHike'][value]:last").val() != undefined ?
+            parseFloat($("[name='txtSalaryAfterHike'][value]:last").val()) :
+            $("#tblEmployeeIncrement TBODY TR:last").find("TD").eq(3).html();
+
+        if (providedCurrentSalary != currentSalaryFromIncrement) {
+            alert('Current salary should match with last incremented salary');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Employees/InsertEmployeeIncrement",
+            data: JSON.stringify(increments),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                alert(r + " record(s) updated.");
+                $('.ui-dialog-titlebar-close').click();
+            }
+        });
+    });
+</script>
+<style>
+
+    .errorBorder {
+        border: 1px solid red;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('[name="txtHikeMonthYear"]').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'MM yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+
+                if ($(this).parent().parent().index() == 0) {
+                    var joiningDate = new Date($('[name="JoiningDate"]').val());
+                    var hikeMonthYear = new Date($(this).val());
+                    if (joiningDate > hikeMonthYear) {
+                        alert('Increment date should be greater than joining date');
+                        $(this).addClass('errorBorder');
+                        return false;
+                    } else {
+                        $(this).removeClass('errorBorder');
+                    }
+                } else {
+
+                    var currentRowIndex = $(this).parent().parent().index();
+                    var joiningDate = new Date(($("#tblEmployeeIncrement TBODY TR").
+                        eq(currentRowIndex - 1).find('td:eq(0)').children().val() != null &&
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(0)').children().val() != undefined) ?
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(0)').children().val() :
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(0)').text());
+                    var hikeMonthYear = new Date($(this).val());
+                    if (joiningDate > hikeMonthYear) {
+                        alert('Increment date should be greater than previous increment date');
+                        $(this).addClass('errorBorder');
+                        return false;
+                    } else {
+                        $(this).removeClass('errorBorder');
+                    }
+                }
+            }
+        });
+
+        $("#tblEmployeeIncrement TBODY TR [name='txtHikeInPercentage']").blur(function () {
+             
+            if ($(this).parent().parent().index() == 0) {
+                var currentSalary = $("#OfferSalary").val();
+                var hikeMonthYear = $("[name='txtHikeMonthYear']").val();
+
+                var hikeAmount = parseFloat(currentSalary) * parseFloat($(this).val()) / 100;
+                $("#txtHikeAmount").val(hikeAmount);
+
+                var salaryAfterHike = parseFloat(currentSalary) + hikeAmount;
+                $("#txtSalaryAfterHike").val(salaryAfterHike);
+
+                var hikeDate = new Date(hikeMonthYear);
+                var salaryEffectiveFrom = new Date(hikeDate.setMonth(hikeDate.getMonth() + 1));
+                var day = ("0" + salaryEffectiveFrom.getDate()).slice(-2);
+                var month = ("0" + (salaryEffectiveFrom.getMonth() + 1)).slice(-2);
+                var salaryEffectiveFromOnlyDate = salaryEffectiveFrom.getFullYear() + "-" + (month) + "-" + (day);
+
+                $('[name="txtSalaryEffectiveFrom"]').val(salaryEffectiveFromOnlyDate);
+            } else {
+                var currentRowIndex = $(this).parent().parent().index();
+                var currentSalary =
+                    ($("#tblEmployeeIncrement TBODY TR").
+                        eq(currentRowIndex - 1).find('td:eq(3)').children().val() != null &&
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').children().val() != undefined) ?
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').children().val() :
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').text();
+                var hikeMonthYear =
+                    ($("#tblEmployeeIncrement TBODY TR").
+                        eq(currentRowIndex).find('td:eq(0)').children().val() != null &&
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex).find('td:eq(0)').children().val() != undefined) ?
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex).find('td:eq(0)').children().val() :
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex).find('td:eq(0)').text();
+
+                var hikeAmount = parseFloat(currentSalary)
+                    * parseFloat($(this).val()) / 100;
+                $("#tblEmployeeIncrement TBODY TR").
+                    eq(currentRowIndex).find("#txtHikeAmount").val(hikeAmount);
+
+                var salaryAfterHike = parseFloat(currentSalary) + hikeAmount;
+                $("#tblEmployeeIncrement TBODY TR").
+                    eq(currentRowIndex).find("#txtSalaryAfterHike").val(salaryAfterHike);
+
+                var hikeDate = new Date(hikeMonthYear);
+                var salaryEffectiveFrom = new Date(hikeDate.setMonth(hikeDate.getMonth() + 1));
+                var day = ("0" + salaryEffectiveFrom.getDate()).slice(-2);
+                var month = ("0" + (salaryEffectiveFrom.getMonth() + 1)).slice(-2);
+                var salaryEffectiveFromOnlyDate = salaryEffectiveFrom.getFullYear() + "-" + (month) + "-" + (day);
+
+                $("#tblEmployeeIncrement TBODY TR").
+                    eq(currentRowIndex).find('[name="txtSalaryEffectiveFrom"]').val(salaryEffectiveFromOnlyDate);
+            }
+        });
+
+        $("#tblEmployeeIncrement TFOOT TR [name='txtHikeInPercentage']").blur(function () {
+             
+            if ($("#tblEmployeeIncrement TBODY TR").length == 0) {
+                var currentSalary = $("#OfferSalary").val();
+                var hikeMonthYear = $("[name='txtHikeMonthYear']").val();
+
+                var hikeAmount = parseFloat(currentSalary) * parseFloat($(this).val()) / 100;
+                $("#txtHikeAmount").val(hikeAmount);
+
+                var salaryAfterHike = parseFloat(currentSalary) + hikeAmount;
+                $("#txtSalaryAfterHike").val(salaryAfterHike);
+
+                var hikeDate = new Date(hikeMonthYear);
+                var salaryEffectiveFrom = new Date(hikeDate.setMonth(hikeDate.getMonth() + 1));
+                var day = ("0" + salaryEffectiveFrom.getDate()).slice(-2);
+                var month = ("0" + (salaryEffectiveFrom.getMonth() + 1)).slice(-2);
+                var salaryEffectiveFromOnlyDate = salaryEffectiveFrom.getFullYear() + "-" + (month) + "-" + (day);
+
+                $('[name="txtSalaryEffectiveFrom"]').val(salaryEffectiveFromOnlyDate);
+            } else {
+                var currentRowIndex = $(this).parent().parent().index();
+                var currentSalary =
+                    ($("#tblEmployeeIncrement TBODY TR").
+                        eq(currentRowIndex - 1).find('td:eq(3)').children().val() != null &&
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').children().val() != undefined) ?
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').children().val() :
+                        $("#tblEmployeeIncrement TBODY TR").
+                            eq(currentRowIndex - 1).find('td:eq(3)').text();
+                var hikeMonthYear =
+                    ($("#tblEmployeeIncrement TFOOT TR").
+                        eq(currentRowIndex).find('td:eq(0)').children().val() != null &&
+                        $("#tblEmployeeIncrement TFOOT TR").
+                            eq(currentRowIndex).find('td:eq(0)').children().val() != undefined) ?
+                        $("#tblEmployeeIncrement TFOOT TR").
+                            eq(currentRowIndex).find('td:eq(0)').children().val() :
+                        $("#tblEmployeeIncrement TFOOT TR").
+                            eq(currentRowIndex).find('td:eq(0)').text();
+
+                var hikeAmount = parseFloat(currentSalary)
+                    * parseFloat($(this).val()) / 100;
+                $("#tblEmployeeIncrement TFOOT TR").
+                    eq(currentRowIndex).find("#txtHikeAmount").val(hikeAmount);
+
+                var salaryAfterHike = parseFloat(currentSalary) + hikeAmount;
+                $("#tblEmployeeIncrement TFOOT TR").
+                    eq(currentRowIndex).find("#txtSalaryAfterHike").val(salaryAfterHike);
+
+                var hikeDate = new Date(hikeMonthYear);
+                var salaryEffectiveFrom = new Date(hikeDate.setMonth(hikeDate.getMonth() + 1));
+                var day = ("0" + salaryEffectiveFrom.getDate()).slice(-2);
+                var month = ("0" + (salaryEffectiveFrom.getMonth() + 1)).slice(-2);
+                var salaryEffectiveFromOnlyDate = salaryEffectiveFrom.getFullYear() + "-" + (month) + "-" + (day);
+
+                $("#tblEmployeeIncrement TFOOT TR").
+                    eq(currentRowIndex).find('[name="txtSalaryEffectiveFrom"]').val(salaryEffectiveFromOnlyDate);
+            }
+        });
+    });
+</script>
+<style>
+
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>

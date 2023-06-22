@@ -1,0 +1,179 @@
+﻿@model EmployeeManagement.Models.EmployeeBgvView
+
+@{
+    ViewBag.Title = "BgvDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+    <h2>@Html.DisplayFor(model => model.Full_Name) Details For BGV</h2>
+       
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Full_Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Full_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Company_Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Company_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Employee_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Employee_Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Mobile)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Mobile)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email_Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Batch)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Team)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Team)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Permanent_Address)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Permanent_Address)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Current_Address)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Current_Address)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-6">
+            <dl class="dl-horizontal">                
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PAN)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PAN)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Adhaar)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Adhaar)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UAN)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UAN)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Joining_Date)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Joining_Date)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Joining_Salary)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Joining_Salary)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Joining_Designation)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Joining_Designation)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Current_Salary)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Current_Salary)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Current_Designation)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Current_Designation)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Resignation_Date)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Resignation_Date)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Last_Working_Day)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Last_Working_Day)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

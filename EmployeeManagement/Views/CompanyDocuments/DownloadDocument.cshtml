@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "DownloadDocument";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DownloadDocument</h2>
+
+
+@using (Html.BeginForm("DownloadDocumentEmployee", "CompanyDocuments", FormMethod.Post))
+{
+
+    <div class="form-group">
+        @Html.Label("DocumentName", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.DocumentName, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.DropDownList("DocumentName", (IEnumerable<SelectListItem>)ViewBag.DocumentType, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    @*@Html.ActionLink("Download", "DownloadDocumentEmployee", "CompanyDocuments")*@
+
+    <input type="submit" value="Download" class="btn btn-primary"/>
+}
